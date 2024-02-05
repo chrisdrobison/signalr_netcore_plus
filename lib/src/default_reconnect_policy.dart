@@ -11,8 +11,7 @@ class DefaultReconnectPolicy implements RetryPolicy {
 
   final List<Duration?> delays;
 
-  DefaultReconnectPolicy({List<Duration?>? delays})
-      : delays = delays != null ? [...delays, null] : _defaultDelays;
+  DefaultReconnectPolicy({List<Duration?>? delays}) : delays = delays != null ? [...delays, null] : _defaultDelays;
 
   @override
   Duration? nextDelay(RetryContext context) {

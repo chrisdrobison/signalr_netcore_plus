@@ -94,8 +94,7 @@ class InvocationMessage extends HubInvocationMessage {
     super.headers,
   }) : super(type: MessageType.invocation);
 
-  factory InvocationMessage.fromJson(Map<String, dynamic> json) =>
-      _$InvocationMessageFromJson(json);
+  factory InvocationMessage.fromJson(Map<String, dynamic> json) => _$InvocationMessageFromJson(json);
 
   @override
   Map<String, dynamic> toJson() => _$InvocationMessageToJson(this);
@@ -117,8 +116,7 @@ class StreamInvocationMessage extends HubInvocationMessage {
     super.headers,
   }) : super(type: MessageType.streamInvocation, invocationId: invocationId);
 
-  factory StreamInvocationMessage.fromJson(Map<String, dynamic> json) =>
-      _$StreamInvocationMessageFromJson(json);
+  factory StreamInvocationMessage.fromJson(Map<String, dynamic> json) => _$StreamInvocationMessageFromJson(json);
   @override
   Map<String, dynamic> toJson() => _$StreamInvocationMessageToJson(this);
 }
@@ -135,8 +133,7 @@ class StreamItemMessage extends HubInvocationMessage {
     super.headers,
   }) : super(type: MessageType.streamItem, invocationId: invocationId);
 
-  factory StreamItemMessage.fromJson(Map<String, dynamic> json) =>
-      _$StreamItemMessageFromJson(json);
+  factory StreamItemMessage.fromJson(Map<String, dynamic> json) => _$StreamItemMessageFromJson(json);
   @override
   Map<String, dynamic> toJson() => _$StreamItemMessageToJson(this);
 }
@@ -155,8 +152,7 @@ class CompletionMessage extends HubInvocationMessage {
     super.headers,
   }) : super(type: MessageType.completion, invocationId: invocationId);
 
-  factory CompletionMessage.fromJson(Map<String, dynamic> json) =>
-      _$CompletionMessageFromJson(json);
+  factory CompletionMessage.fromJson(Map<String, dynamic> json) => _$CompletionMessageFromJson(json);
   @override
   Map<String, dynamic> toJson() => _$CompletionMessageToJson(this);
 }
@@ -165,8 +161,7 @@ class CompletionMessage extends HubInvocationMessage {
 class PingMessage extends HubMessage {
   const PingMessage() : super(MessageType.ping);
 
-  factory PingMessage.fromJson(Map<String, dynamic> json) =>
-      _$PingMessageFromJson(json);
+  factory PingMessage.fromJson(Map<String, dynamic> json) => _$PingMessageFromJson(json);
   @override
   Map<String, dynamic> toJson() => _$PingMessageToJson(this);
 }
@@ -181,8 +176,7 @@ class CloseMessage extends HubMessage {
     this.allowReconnect,
   }) : super(MessageType.close);
 
-  factory CloseMessage.fromJson(Map<String, dynamic> json) =>
-      _$CloseMessageFromJson(json);
+  factory CloseMessage.fromJson(Map<String, dynamic> json) => _$CloseMessageFromJson(json);
   @override
   Map<String, dynamic> toJson() => _$CloseMessageToJson(this);
 }
@@ -197,43 +191,40 @@ class CancelInvocationMessage extends HubInvocationMessage {
     super.headers,
   }) : super(type: MessageType.cancelInvocation, invocationId: invocationId);
 
-  factory CancelInvocationMessage.fromJson(Map<String, dynamic> json) =>
-      _$CancelInvocationMessageFromJson(json);
+  factory CancelInvocationMessage.fromJson(Map<String, dynamic> json) => _$CancelInvocationMessageFromJson(json);
   @override
   Map<String, dynamic> toJson() => _$CancelInvocationMessageToJson(this);
 }
 
 @JsonSerializable()
 class AckMessage extends HubMessage {
-  final num sequenceId;
+  final int sequenceId;
 
   const AckMessage({
     required this.sequenceId,
   }) : super(MessageType.ack);
 
-  factory AckMessage.fromJson(Map<String, dynamic> json) =>
-      _$AckMessageFromJson(json);
+  factory AckMessage.fromJson(Map<String, dynamic> json) => _$AckMessageFromJson(json);
   @override
   Map<String, dynamic> toJson() => _$AckMessageToJson(this);
 }
 
 @JsonSerializable()
 class SequenceMessage extends HubMessage {
-  final num sequenceId;
+  final int sequenceId;
 
   const SequenceMessage({
     required this.sequenceId,
   }) : super(MessageType.sequence);
 
-  factory SequenceMessage.fromJson(Map<String, dynamic> json) =>
-      _$SequenceMessageFromJson(json);
+  factory SequenceMessage.fromJson(Map<String, dynamic> json) => _$SequenceMessageFromJson(json);
   @override
   Map<String, dynamic> toJson() => _$SequenceMessageToJson(this);
 }
 
 abstract interface class HubProtocol {
   String get name;
-  num get version;
+  int get version;
   TransferFormat get transferFormat;
 
   List<HubMessage> parseMessages(Object input);

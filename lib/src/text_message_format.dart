@@ -3,8 +3,7 @@ class TextMessageFormat {
 
   static const recordSeparatorCode = 0x1e;
 
-  static String recordSeparator =
-      String.fromCharCode(TextMessageFormat.recordSeparatorCode);
+  static String recordSeparator = String.fromCharCode(TextMessageFormat.recordSeparatorCode);
 
   static String write(String output) {
     return '$output${TextMessageFormat.recordSeparator}';

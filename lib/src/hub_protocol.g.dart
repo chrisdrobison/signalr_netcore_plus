@@ -119,7 +119,7 @@ Map<String, dynamic> _$CancelInvocationMessageToJson(
     };
 
 AckMessage _$AckMessageFromJson(Map<String, dynamic> json) => AckMessage(
-      sequenceId: json['sequenceId'] as num,
+      sequenceId: json['sequenceId'] as int,
     );
 
 Map<String, dynamic> _$AckMessageToJson(AckMessage instance) =>
@@ -129,7 +129,7 @@ Map<String, dynamic> _$AckMessageToJson(AckMessage instance) =>
 
 SequenceMessage _$SequenceMessageFromJson(Map<String, dynamic> json) =>
     SequenceMessage(
-      sequenceId: json['sequenceId'] as num,
+      sequenceId: json['sequenceId'] as int,
     );
 
 Map<String, dynamic> _$SequenceMessageToJson(SequenceMessage instance) =>

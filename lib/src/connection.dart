@@ -1,17 +1,16 @@
 import 'package:meta/meta.dart';
 
 abstract class Connection {
-  final String baseUrl;
-  final Map<String, dynamic>? features;
+  final Map<String, dynamic> features = <String, dynamic>{};
   final String? connectionId;
 
+  String? baseUrl;
   Function(Object)? onReceive;
   Function(Object?)? onClose;
 
   @protected
   Connection({
-    required this.baseUrl,
-    this.features,
+    this.baseUrl,
     this.connectionId,
     this.onReceive,
     this.onClose,

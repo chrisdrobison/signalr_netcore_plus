@@ -50,6 +50,6 @@ class JsonHubProtocol implements HubProtocol {
 
   @override
   Object writeMessage(HubMessage message) {
-    return jsonEncode(message.toJson());
+    return jsonEncode(message);
   }
 }
