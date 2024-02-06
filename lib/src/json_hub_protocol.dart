@@ -9,7 +9,7 @@ import 'text_message_format.dart';
 import 'transport.dart';
 
 class JsonHubProtocol implements HubProtocol {
-  static final Logger _log = Logger('SignalR-JsonHubProtocol');
+  static final Logger _log = Logger('SignalR-Protocol-Json');
 
   @override
   String name = 'json';

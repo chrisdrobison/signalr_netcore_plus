@@ -18,11 +18,13 @@ enum TransferFormat {
   const TransferFormat(this.value);
 }
 
+typedef AccessTokenFactory = Future<String> Function();
+
 abstract interface class Transport {
   Future<void> connect(String url, TransferFormat transferFormat);
   Future<void> send(Object data);
   Future<void> stop();
 
-  Function(Object)? onReceive;
-  Function(Object?)? onClose;
+  Function(Object data)? onReceive;
+  Function(Object? error)? onClose;
 }
