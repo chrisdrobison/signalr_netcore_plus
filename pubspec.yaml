@@ -12,7 +12,11 @@ dependencies:
   json_annotation: ^4.8.1
   logging: ^1.2.0
   meta: ^1.11.0
+  pool: ^1.5.1
   quiver: ^3.2.1
+  sse: ^4.1.1
+  stream_channel: ^2.1.2
+  uuid: ^4.3.3
   web_socket_channel: ^2.4.3
 
 dev_dependencies:

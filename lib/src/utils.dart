@@ -2,6 +2,13 @@
 
 import 'dart:typed_data';
 
+import 'package:logging/logging.dart';
+import 'package:quiver/strings.dart';
+import 'package:signalr_netcore_plus/src/http_connection_options.dart';
+
+import 'http_client.dart';
+import 'transport.dart';
+
 String getDataDetail(Object? data, bool includeContent) {
   var detail = '';
   if (data is Uint8List) {
@@ -28,4 +35,34 @@ String formatArrayBuffer(Uint8List data) {
 
   // Trim of trailing space.
   return str.substring(0, str.length - 1);
+}
+
+Future<void> sendMessage(
+  Logger? logger,
+  String transportName,
+  HttpClient httpClient,
+  String? url,
+  Object content,
+  HttpConnectionOptions options,
+) async {
+  final headers = <String, String>{};
+  if (options.accessTokenFactory != null) {
+    final token = await options.accessTokenFactory!();
+    if (isNotBlank(token)) {
+      headers["Authorization"] = "Bearer $token";
+    }
+  }
+
+  // logger.log(LogLevel.Trace, `(${transportName} transport) sending data. ${getDataDetail(content, logMessageContent)}.`);
+  logger?.finest("($transportName transport) sending data.");
+
+  //final responseType = content is String ? "arraybuffer" : "text";
+  var req = HttpRequest(
+    content: content,
+    headers: headers,
+    timeout: options.timeout,
+  );
+  final response = await httpClient.post(url, options: req);
+
+  logger?.finest("($transportName transport) request complete. Response status: ${response.statusCode}.");
 }

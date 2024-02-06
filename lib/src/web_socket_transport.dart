@@ -11,7 +11,6 @@ class WebSocketTransport implements Transport {
 
   final AccessTokenFactory? _accessTokenFactory;
   final bool _logMessageContent;
-  final Map<String, String> _headers;
 
   WebSocketChannel? _webSocket;
   StreamSubscription? _webSocketListenSub;
@@ -25,10 +24,8 @@ class WebSocketTransport implements Transport {
   WebSocketTransport({
     AccessTokenFactory? accessTokenFactory,
     bool logMessageContent = false,
-    required Map<String, String> headers,
   })  : _accessTokenFactory = accessTokenFactory,
-        _logMessageContent = logMessageContent,
-        _headers = headers;
+        _logMessageContent = logMessageContent;
 
   @override
   Future<void> connect(String url, TransferFormat transferFormat) async {
@@ -82,8 +79,12 @@ class WebSocketTransport implements Transport {
       },
       onError: (error) {
         _log.severe('(WebSockets transport) Error occurred when receiving data.', error);
-        if (onClose != null) {
-          onClose!(error);
+        if (opened) {
+          _close(error);
+        } else {
+          if (!completer.isCompleted) {
+            completer.completeError(error);
+          }
         }
       },
     );
