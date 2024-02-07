@@ -12,10 +12,10 @@ class JsonHubProtocol implements HubProtocol {
   static final Logger _log = Logger('SignalR-Protocol-Json');
 
   @override
-  String name = 'json';
+  String get name => 'json';
 
   @override
-  int version = 2;
+  int get version => 2;
 
   @override
   TransferFormat get transferFormat => TransferFormat.text;
