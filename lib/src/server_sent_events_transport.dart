@@ -11,7 +11,7 @@ class ServerSentEventsTransport implements Transport {
   static final Logger _log = Logger('SignalR-Tranport-ServerSentEvents');
 
   final HttpClient _httpClient;
-  final HttpConnectionOptions _httpConnectionOptions;
+  final HttpConnectionOptions _options;
 
   String? _url;
   SseChannel? _sseClient;
@@ -26,7 +26,7 @@ class ServerSentEventsTransport implements Transport {
     required HttpClient client,
     required HttpConnectionOptions httpConnectionOptions,
   })  : _httpClient = client,
-        _httpConnectionOptions = httpConnectionOptions;
+        _options = httpConnectionOptions;
 
   @override
   Future<void> connect(String url, TransferFormat transferFormat) async {
@@ -34,8 +34,8 @@ class ServerSentEventsTransport implements Transport {
     _url = url;
 
     String? token;
-    if (_httpConnectionOptions.accessTokenFactory != null) {
-      token = await _httpConnectionOptions.accessTokenFactory!();
+    if (_options.accessTokenFactory != null) {
+      token = await _options.accessTokenFactory!();
       if (isNotBlank(token)) {
         url += '${url.contains('?') ? '&' : '?'}access_token=${Uri.encodeComponent(token)}';
       }
@@ -60,8 +60,7 @@ class ServerSentEventsTransport implements Transport {
     _sseClient!.stream.listen(
       (data) {
         try {
-          _log.finest(
-              '(SSE transport) Data received: ${getDataDetail(data, _httpConnectionOptions.logMessageContent)}.');
+          _log.finest('(SSE transport) Data received: ${getDataDetail(data, _options.logMessageContent)}.');
           onReceive?.call(data);
         } catch (error) {
           _close(error);
@@ -88,7 +87,7 @@ class ServerSentEventsTransport implements Transport {
       _httpClient,
       _url!,
       data,
-      _httpConnectionOptions,
+      _options,
     );
   }
 
